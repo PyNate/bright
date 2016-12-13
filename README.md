@@ -30,7 +30,7 @@ babel-node server/server.js
 JSON data should be submitted in the following format:
 ```javascript
 {
-"title": strings, // required"
+"title": string, // required"
 "description": string, // required
 "startDate": datetime, // required
 "endDate": datetime, // required

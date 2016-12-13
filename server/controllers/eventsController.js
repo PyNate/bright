@@ -75,6 +75,7 @@ export function createEvent(req, res) {
 }
 
 export function editEvent(req, res) {
+  // [todo]: Reduce database operations
   const reqData = req.body;
   const updatedEvent = formatServerEvent(reqData);
   const updatedId = reqData.id;

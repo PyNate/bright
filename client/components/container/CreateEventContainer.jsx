@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 import CreateEditScreen from '../presentation/CreateEditScreen';
 import { createEvent } from '../../store/reduxActions';
 

@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import EventsList from './components/container/EventsList';
+import CreateEventContainer from './components/container/CreateEventContainer';
 import EventScreenContainer from './components/container/EventScreenContainer';
 import store from './store/reduxStore';
 import App from './components/App';
@@ -23,7 +24,10 @@ render((
           component={EventScreenContainer}
         />
         {/* <Route path="/event/:eventId"/edit component={EditEventContainer} /> */}
-        {/* <Route path="/create component={CreateEventContainer} /> */}
+        <Route
+          path="/create"
+          component={CreateEventContainer}
+        />
       </Route>
     </Router>
   </Provider>
