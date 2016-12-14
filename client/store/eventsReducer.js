@@ -20,14 +20,7 @@ export default function events(state = {}, action) {
 
     case Actions.EVENT_UPDATE:
       updatedEvents = Object.assign({}, state)
-      updatedEvents = [];
-      state.forEach((event) => {
-        if (event.id === action.eventId) {
-          updatedEvents.push(action.event);
-        } else {
-          updatedEvents.push(event);
-        }
-      });
+      updatedEvents[action.event.id] = action.event;
       return updatedEvents;
 
     case Actions.EVENTS_LOAD_ALL:

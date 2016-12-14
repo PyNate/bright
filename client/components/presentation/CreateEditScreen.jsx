@@ -7,17 +7,28 @@ export default class CreateEditScreen extends Component {
 
   formatAndSubmit = (e) => {
     e.preventDefault();
+    const categoryValue = this.categoryInput.value;
     const event = {
       title: this.titleInput.value,
       isFeatured: this.featuredInput.checked,
       description: this.descriptionInput.value,
       startDate: this.startDateInput.value,
       endDate: this.endDateInput.value,
-      categories: [
-        {
-          name: this.categoryInput.value,
-        }
-      ],
+      categories: [],
+    }
+    if (categoryValue) {
+      event.categories = [
+        { name: categoryValue }
+      ]; // default case
+      if (this.props.event && this.categoryValue === this.props.event.categories[0].name) {
+        event.categories = this.props.event.categories;
+      } else {
+        this.props.categories.forEach((category) => {
+          if (this.categoryValue === category.name) {
+            event.categories = [ { name: category.name, id: category.id } ];
+          }
+        });
+      }
     }
     this.props.callback(event);
   }
@@ -34,7 +45,7 @@ export default class CreateEditScreen extends Component {
               type="text"
               ref={c => {this.titleInput = c;}}
               placeholder={"New Event"}
-              defaultValue={this.props.title}
+              defaultValue={this.props.event && this.props.event.title}
             />
           </li>
           <li className="field create-edit-featured">
@@ -51,7 +62,7 @@ export default class CreateEditScreen extends Component {
               className="create-edit-input-textarea"
               ref={c => {this.descriptionInput = c;}}
               placeholder={"An example event"}
-              defaultValue={this.props.description}
+              defaultValue={this.props.event && this.props.event.description}
             />
           </li>
           <li className="field create-edit-start-date">
@@ -60,7 +71,7 @@ export default class CreateEditScreen extends Component {
               className="create-edit-input-datetime"
               type="datetime-local"
               ref={c => {this.startDateInput = c;}}
-              defaultValue={this.props.startDate || currentDate}
+              defaultValue={(this.props.event && this.props.event.startDate.slice(0, -1)) || currentDate}
             />
           </li>
           <li className="field create-edit-end-date">
@@ -69,7 +80,7 @@ export default class CreateEditScreen extends Component {
               className="create-edit-input-datetime"
               type="datetime-local"
               ref={c => {this.endDateInput = c;}}
-              defaultValue={this.props.endDate || currentDate}
+              defaultValue={(this.props.event && this.props.event.endDate.slice(0, -1)) || currentDate}
             />
           </li>
           <li className="field create-edit-category">
@@ -79,7 +90,7 @@ export default class CreateEditScreen extends Component {
               type="text"
               ref={c => {this.categoryInput = c;}}
               placeholder={"Example"}
-              defaultValue={this.props.category}
+              defaultValue={this.props.event && this.props.event.categories[0] && this.props.event.categories[0].name}
             />
           </li>
           <li className="button create-edit-submit">
@@ -92,11 +103,16 @@ export default class CreateEditScreen extends Component {
 }
 
 CreateEditScreen.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  isFeatured: PropTypes.bool,
-  startDate: PropTypes.string,
-  endDate: PropTypes.string,
-  category: PropTypes.string,
+  event: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    isFeatured: PropTypes.bool,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
+    categories: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.number,
+    })),
+  }),
   callback: PropTypes.func.isRequired,
 }

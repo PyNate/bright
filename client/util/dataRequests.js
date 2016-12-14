@@ -5,7 +5,7 @@ import {
   loadEventCategories,
   loadEvents,
   createEventSuccess,
-  editEventSuccess,
+  updateEventSuccess,
   deleteEventSuccess,
  } from '../store/reduxActions';
 
@@ -33,7 +33,9 @@ export function getAllCategories() {
 export function getCategoriesForEventId(eventId) {
   return axios.get(`/events/${eventId}/categories`)
     .then((res) => {
-      store.dispatch(loadEventCategories(eventId, res.data));
+      if (res.data.length) {
+        store.dispatch(loadEventCategories(eventId, res.data));
+      }
       return res.data;
     });
 }

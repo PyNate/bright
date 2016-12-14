@@ -93,7 +93,6 @@ export function editEvent(req, res) {
       const oldCategoryIds = getCategoryIds([], oldCategories);
       categoriesDiff.toAdd = arrayDiff(updatedCategoryIds, oldCategoryIds);
       categoriesDiff.toDelete = arrayDiff(oldCategoryIds, updatedCategoryIds);
-      console.log(categoriesDiff);
       return null;
     })
     .then(() => {

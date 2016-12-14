@@ -5,6 +5,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import EventsList from './components/container/EventsList';
 import CreateEventContainer from './components/container/CreateEventContainer';
 import EventScreenContainer from './components/container/EventScreenContainer';
+import EditEventContainer from './components/container/EditEventContainer';
 import store from './store/reduxStore';
 import App from './components/App';
 import {
@@ -23,10 +24,15 @@ render((
           onEnter={({ params }) => { getCategoriesForEventId(params.eventId); }}
           component={EventScreenContainer}
         />
-        {/* <Route path="/event/:eventId"/edit component={EditEventContainer} /> */}
+        <Route
+          path="/event/:eventId/edit"
+          component={EditEventContainer}
+          onEnter={() => { getAllCategories(); }}
+        />
         <Route
           path="/create"
           component={CreateEventContainer}
+          onEnter={() => { getAllCategories(); }}
         />
       </Route>
     </Router>

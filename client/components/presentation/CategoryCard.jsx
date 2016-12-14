@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export default function CategoryContainer({ category, allowEdit, onDelete }) {
+export default function CategoryCard({ category, allowEdit, onDelete }) {
   let removeButton = null;
   if (allowEdit && onDelete) {
     removeButton = (
@@ -21,7 +21,7 @@ export default function CategoryContainer({ category, allowEdit, onDelete }) {
   );
 }
 
-CategoryContainer.propTypes = {
+CategoryCard.propTypes = {
   category: PropTypes.shape({
     name: PropTypes.string.isRequired,
     id: PropTypes.number,
