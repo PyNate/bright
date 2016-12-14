@@ -1,12 +1,16 @@
 import React, { PropTypes } from 'react';
+import { browserHistory } from 'react-router';
 import EventCard from '../presentation/EventCard';
-import { deleteEvent } from '../../store/reduxActions';
+import { deleteEvent } from '../../util/dataRequests';
 
 export default function EventCardContainer({ eventId, title, isFeatured, dispatch }) {
   const classNames = isFeatured ? 'event-card' : 'event-card featured';
 
   function onDelete() {
-    dispatch(deleteEvent(eventId));
+    deleteEvent(eventId)
+      .then(() => {
+        browserHistory.push('/');
+      });
   }
 
   return (

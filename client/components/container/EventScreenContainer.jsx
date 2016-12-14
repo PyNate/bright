@@ -1,11 +1,19 @@
 import React, { PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import EventScreen from '../presentation/EventScreen';
-import { deleteEvent } from '../../store/reduxActions';
+import { deleteEvent } from '../../util/dataRequests';
 
 function EventScreenContainer({ event, categories, dispatch }) {
   function onDelete() {
-    dispatch(deleteEvent(event.id));
+    deleteEvent(event.id)
+      .then(() => {
+        browserHistory.push('/');
+      });
+  }
+
+  if (!event) {
+    return null; // Event has just been deleted and we're about to reroute if we end up here.
   }
 
   return (
@@ -27,7 +35,7 @@ EventScreenContainer.propTypes = {
     endDate: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     isFeatured: PropTypes.bool,
-  }).isRequired,
+  }),
   categories: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     id: PropTypes.number,
@@ -37,7 +45,7 @@ EventScreenContainer.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   const event = state.events[ownProps.params.eventId];
-  const categories = event.categories;
+  const categories = event && event.categories;
   return { event, categories };
 }
 
