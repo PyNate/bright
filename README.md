@@ -12,7 +12,7 @@ NODE_ENV=development knex migrate:latest
 ### Starting the server
 run the server on localhost:3000 with the following command:
 ```bash
-babel-node server/server.js
+npm start
 ```
 
 ### Server API
