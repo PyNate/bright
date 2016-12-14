@@ -34,7 +34,7 @@ export default class CreateEditScreen extends Component {
   }
 
   render() {
-    const currentDate = new Date().toISOString().slice(0, -1); // HTML5 datetime does not accept the ISO zone designator, so we remove it here
+    const currentDate = new Date().toISOString().slice(0, -8); // Removing seconds and zone designator
     return (
       <form className="create-edit-contents" onSubmit={this.formatAndSubmit}>
         <ul className="create-edit-fields">
