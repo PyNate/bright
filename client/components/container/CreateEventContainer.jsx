@@ -1,7 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import CreateEditScreen from '../presentation/CreateEditScreen';
-import { createEvent } from '../../store/reduxActions';
+import { createEvent } from '../../util/dataRequests';
 
 class CreateEventContainer extends Component {
   constructor(props){
@@ -11,12 +12,13 @@ class CreateEventContainer extends Component {
     };
   }
 
-  createEvent(event) {
+  onCreateEvent(event) {
     if (!this.state.submitted) {
-      this.props.dispatch(createEvent(event));
-      // set route
-    } else {
       this.setState({ submitted: true });
+      createEvent(event)
+        .then((id) => {
+          browserHistory.push(`/event/${id}`);
+        });
     }
   }
 
@@ -25,7 +27,7 @@ class CreateEventContainer extends Component {
       <div className="create-edit-container">
         <CreateEditScreen
           categories={this.props.categories}
-          callback={this.createEvent.bind(this)}
+          callback={this.onCreateEvent.bind(this)}
         />
       </div>
     );

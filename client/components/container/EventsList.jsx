@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import EventCardContainer from './EventCardContainer';
 
 function EventsList({ events, dispatch }) {
-  const eventComponents = events.map((event, i) => { // eslint-disable-line arrow-body-style
+  const eventComponents = Object.keys(events).map((eventId, i) => {
     return (
       <EventCardContainer
         key={i}
-        eventId={event.id}
-        title={event.title}
-        isFeatured={event.isFeatured}
+        eventId={events[eventId].id}
+        title={events[eventId].title}
+        isFeatured={events[eventId].isFeatured}
         dispatch={dispatch}
       />
     );
@@ -19,11 +19,13 @@ function EventsList({ events, dispatch }) {
 }
 
 EventsList.propTypes = {
-  events: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    isFeatured: PropTypes.bool,
-  })).isRequired,
+  events: PropTypes.shape({
+    [PropTypes.string]: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      isFeatured: PropTypes.bool,
+    })
+  }).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

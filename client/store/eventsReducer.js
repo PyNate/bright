@@ -1,38 +1,25 @@
 import Actions from '../../constants/actionTypeConstants';
 
-export default function events(state = [], action) {
+export default function events(state = {}, action) {
   let newEvent;
   let updatedEvents;
 
   switch (action.type) { // eslint-disable-line default-case
     case Actions.EVENT_CREATE:
-      updatedEvents = state.slice();
-      newEvent = action.event;
-      newEvent.id = state.length; // Assumes no IDs were created remotely until update can happen
-      updatedEvents.push(newEvent);
-      return updatedEvents;
+      return Object.assign({}, state, { [action.event.id]: action.event });
 
     case Actions.EVENT_DELETE:
-      updatedEvents = [];
-      state.forEach((event) => {
-        if (!event.id === action.eventId) {
-          updatedEvents.push(event);
-        }
-      });
+      updatedEvents = Object.assign({}, state);
+      delete updatedEvents[action.eventId];
       return updatedEvents;
 
     case Actions.EVENT_GET_CATEGORIES:
-      updatedEvents = [];
-      state.forEach((event) => {
-        if (event.id === action.eventId) {
-          updatedEvents.push(Object.assign({}, event, action.categories));
-        } else {
-          updatedEvents.push(event);
-        }
-      });
+      updatedEvents = Object.assign({}, state);
+      updatedEvents[action.eventId] = Object.assign({}, updatedEvents[action.eventId], { categories: [action.categories[0]] });
       return updatedEvents;
 
     case Actions.EVENT_UPDATE:
+      updatedEvents = Object.assign({}, state)
       updatedEvents = [];
       state.forEach((event) => {
         if (event.id === action.eventId) {
@@ -44,7 +31,11 @@ export default function events(state = [], action) {
       return updatedEvents;
 
     case Actions.EVENTS_LOAD_ALL:
-      return action.events;
+      updatedEvents = Object.assign({}, state);
+      action.events.forEach((event) => {
+        updatedEvents[event.id] = event;
+      });
+      return updatedEvents;
   }
 
   return state;

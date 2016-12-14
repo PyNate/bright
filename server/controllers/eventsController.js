@@ -70,7 +70,7 @@ export function createEvent(req, res) {
       return EventsCategories.linkCategoriesToEvent(categoryIds, eventId);
     })
     .then(() => {
-      res.status(201).end();
+      res.status(201).send(JSON.stringify(eventId));
     });
 }
 

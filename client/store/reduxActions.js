@@ -7,14 +7,14 @@ export function loadCategories(categories) {
   };
 }
 
-export function createEvent(event) {
+export function createEventSuccess(event) {
   return {
     event,
     type: Actions.EVENT_CREATE,
   };
 }
 
-export function deleteEvent(eventId) {
+export function deleteEventSuccess(eventId) {
   return {
     eventId,
     type: Actions.EVENT_DELETE,
@@ -29,7 +29,7 @@ export function loadEventCategories(eventId, categories) {
   };
 }
 
-export function updateEvent(event) {
+export function updateEventSuccess(event) {
   return {
     event,
     type: Actions.EVENT_UPDATE,
