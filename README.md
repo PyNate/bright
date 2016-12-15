@@ -10,7 +10,18 @@ NODE_ENV=development knex migrate:latest
 ```
 
 ### Starting the server
-run the server on localhost:3000 with the following command:
+
+First, install the package dependencies with:
+```bash
+npm install
+```
+
+Before running the server, you must build the client code with webpack:
+```bash
+webpack
+```
+
+Finally, run the server on localhost:3000 with the following command:
 ```bash
 npm start
 ```
