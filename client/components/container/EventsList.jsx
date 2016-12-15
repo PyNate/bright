@@ -15,7 +15,11 @@ function EventsList({ events, dispatch }) {
     );
   });
 
-  return (<ul className="events-list">{eventComponents}</ul>);
+  return (
+    <div className="events-list-container">
+      <ul className="events-list">{eventComponents}</ul>
+    </div>
+  );
 }
 
 EventsList.propTypes = {

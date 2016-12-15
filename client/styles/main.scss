@@ -1,0 +1,67 @@
+@import 'modules/variables';
+@import 'modules/nav';
+
+body {
+  margin: 0;
+  background-color: $gray-10;
+  font-family: Arial;
+
+  h1, p, ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  [class$="container"] {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 5%;
+  }
+
+  .events-list {
+    display: flex;
+    flex-direction: column;
+
+    .event-card {
+      margin: 2% 0;
+      background-color: white;
+
+      .event-card-content {
+        padding: 2%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .event-card-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .event-card-id {
+            font-size: 0.75em;
+          }
+
+          .event-card-featured {
+            color: $light-red;
+          }
+        }
+
+        .event-controls {
+          display: flex;
+          justify-content: flex-end;
+
+          a {
+            padding: 0 2%;
+          }
+        }
+      }
+    }
+  }
+}

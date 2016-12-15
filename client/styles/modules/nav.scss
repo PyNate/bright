@@ -1,0 +1,39 @@
+@import 'variables';
+
+nav {
+  width: 100%;
+  height: 3em;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $green;
+
+  .logo {
+    margin: 0;
+    font-size: 2em;
+    font-weight: normal;
+    color: white;
+    white-space: nowrap;
+  }
+
+  .nav-actions {
+    margin: 0;
+    padding: 0 5%;
+    display: flex;
+    list-style: none;
+
+    .nav-item {
+      height: 100%;
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+
+      a {
+        color: white;
+        text-decoration: none;
+      }
+    }
+  }
+}

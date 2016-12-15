@@ -6,9 +6,11 @@ export default function EventCard({ eventId, title, isFeatured, onDelete }) {
 
   return (
     <div className="event-card-content">
-      <p className="event-card-id">{eventId}</p>
+      <div className="event-card-header">
+        <p className="event-card-id">{eventId}</p>
+        {featuredText}
+      </div>
       <p className="event-card-title">{title}</p>
-      {featuredText}
       <EventControls
         eventId={eventId}
         onDelete={onDelete}
